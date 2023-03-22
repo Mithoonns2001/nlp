@@ -64,6 +64,14 @@ data = [
 ]
 
 input_texts, target_texts = preprocess_data(data)
+# Write preprocessed data to file
+with open("preprocessed.txt", "w") as f:
+    for input_text, target_text in zip(input_texts, target_texts):
+        f.write(f"Input: {input_text}\n")
+        f.write(f"Target: {target_text}\n")
+        f.write("\n")
+print("Preprocessed data saved to preprocessed.txt")
+
 tokenizer = train_tokenizer(input_texts, target_texts)
 
 block_size = 128
@@ -152,3 +160,7 @@ for epoch in range(n_epochs):
 model_save_path = "project_generator_model.pth"
 torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
+
+# Save the tokenizer
+tokenizer_save_path = "project_generato_tokenizer"
+tokenizer.save(tokenizer_save_path)
